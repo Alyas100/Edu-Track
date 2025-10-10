@@ -11,7 +11,7 @@ const GoogleAuth = () => {
     const supabase = createClient();
 
     // Define the redirection URL after successful sign-in
-    const redirectTo = `${window.location.origin}/api/auth/v1/callback`;
+    const redirectTo = `${window.location.origin}/setup`;
 
     //  Initiate the OAuth flow
     const { error } = await supabase.auth.signInWithOAuth({
@@ -36,7 +36,10 @@ const GoogleAuth = () => {
 
       <button
         className="flex items-center justify-center gap-2 border border-gray-300 rounded-[5px] w-full p-2 mt-6"
-        onClick={handleGoogleSignIn}
+        onClick={(e) => {
+          e.preventDefault();
+          handleGoogleSignIn();
+        }}
       >
         <span>
           <Image
