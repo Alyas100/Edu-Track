@@ -5,7 +5,7 @@ export default function Navbar() {
                 <h1 className="text-2xl font-bold text-black">EduBridge</h1>
 
                 <ul className="hidden md:flex gap-10 text-black list-none">
-                    <li><a href="#home" className="inline-block hover:text-black hover:scale-110">Home</a></li>
+                    <li><a href="#hero" className="inline-block hover:text-black hover:scale-110">Home</a></li>
                     <li><a href="#features" className="inline-block hover:text-black hover:scale-110">Features</a></li>
                     <li><a href="#howitworks" className="inline-block hover:text-black hover:scale-110">How It Works</a></li>
                     <li><a href="#about" className="inline-block hover:text-black hover:scale-110">About</a></li>

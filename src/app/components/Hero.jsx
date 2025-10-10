@@ -1,6 +1,9 @@
 export default function Hero() {
     return (
-        <section className="flex flex-col items-center justify-center text-center min-h-screen bg-[var-(--background)] text-black px-6">
+        <section
+            id="hero"
+            className="flex flex-col items-center justify-center text-center min-h-screen bg-[var-(--background)] text-black px-6"
+        >
             <h1 className="text-5xl md:text-6xl font-bold mb-6 mt-20">
                 Bridging Education for Every Student 🌍
             </h1>
