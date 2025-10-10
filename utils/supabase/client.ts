@@ -8,3 +8,6 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
+
+// Export a singleton instance for convenience(so can share instance between other function without creating again)
+export const supabase = createClient();
