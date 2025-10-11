@@ -1,8 +1,8 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import HowItWorks from "./components/HowItWorks";
-import Testimonials from "./components/Testimonials";
+import Features from "../../components/landing-page/Features";
+import Hero from "../../components/landing-page/Hero";
+import HowItWorks from "../../components/landing-page/HowItWorks";
+import Navbar from "../../components/landing-page/Navbar";
+import Testimonials from "../../components/landing-page/Testimonials";
 
 export default function Home() {
   return (
