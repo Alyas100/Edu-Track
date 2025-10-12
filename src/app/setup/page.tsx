@@ -1,24 +1,30 @@
 "use client";
-import { useState } from "react";
+
+import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 import ChooseRole from "@/components/profileSetup/ChooseRole";
-import StudentProfileSetup from "@/components/profileSetup/StudentProfileSetup";
-import TutorProfileSetup from "@/components/profileSetup/TutorProfileSetup";
 import updateUserRole from "@/utils/supabase/updateUserRole";
 
-const RoleSetupPage = () => {
-  const [role, setRole] = useState<"student" | "tutor" | null>(null);
+const SetupPage = () => {
+  const router = useRouter();
+  const supabase = createClient();
 
-  // handle role selection
   const handleSelectRole = async (selectedRole: "student" | "tutor") => {
     await updateUserRole(selectedRole);
-    setRole(selectedRole);
+
+    // Redirect to next setup step
+    if (selectedRole === "student") {
+      router.push("/setup/student-profile-setup");
+    } else {
+      router.push("/setup/tutor-profile-setup");
+    }
   };
+
   return (
     <div>
-      {!role && <ChooseRole onSelectRole={handleSelectRole} />}
-      {role === "student" && <StudentProfileSetup />}
-      {role === "tutor" && <TutorProfileSetup />}
+      <ChooseRole onSelectRole={handleSelectRole} />
     </div>
   );
 };
-export default RoleSetupPage;
+
+export default SetupPage;

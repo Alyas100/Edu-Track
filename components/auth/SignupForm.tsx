@@ -10,8 +10,10 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async () => {
+    setLoading(true);
     try {
       const response = await fetch("/api/auth/sign-up", {
         method: "POST",
@@ -30,13 +32,17 @@ const SignupForm = () => {
 
       if (response.ok) {
         console.log("Signup successful!", data);
-        // Redirect to dashboard or show success message
+        alert(
+          "✅ Signup successful! Please check your email to confirm your account."
+        ); // Redirect to dashboard or show success message
       } else {
         console.error("Signup failed:", data.error);
         // Show error message to user
       }
     } catch (error) {
       console.error("Network error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,10 +118,11 @@ const SignupForm = () => {
             />
             <button
               type="button"
+              disabled={loading}
               onClick={handleSignUp}
               className="bg-[#0088FF] text-white rounded-[5px] w-full p-[4px] mt-4"
             >
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
             {/* Signup/Login with Google */}
             <GoogleAuth />

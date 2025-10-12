@@ -1,26 +1,22 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "./client";
 
-const supabase = createClient();
+export default async function updateUserRole(role: "student" | "tutor") {
+  const supabase = createClient();
 
-async function updateUserRole(selectedRole: "student" | "tutor") {
   const {
     data: { user },
     error: userError,
   } = await supabase.auth.getUser();
+
   if (userError || !user) {
-    console.error("Error fetching current user:", userError);
+    console.error("No authenticated user found:", userError);
     return;
   }
 
-  const { error } = await supabase
+  const { error: updateError } = await supabase
     .from("profiles")
-    .update({ role: selectedRole, updated_at: new Date().toISOString() })
+    .update({ role })
     .eq("id", user.id);
 
-  if (error) {
-    console.error("Error updating user role:", error.message);
-  } else {
-    console.log(`✅ Role set to ${selectedRole}`);
-  }
+  if (updateError) console.error("Failed to update role:", updateError);
 }
-export default updateUserRole;
