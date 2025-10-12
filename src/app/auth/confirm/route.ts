@@ -17,7 +17,7 @@ export async function GET(request: Request) {
     if (!error) {
       console.log("Success!");
       // Redirect to dashboard or home
-      return NextResponse.redirect(`${origin}/dashboard`);
+      return NextResponse.redirect(`${origin}/setup`);
     }
 
     console.error(" Error:", error);
