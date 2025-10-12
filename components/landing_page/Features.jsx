@@ -2,7 +2,7 @@ export default function Features() {
     return (
         <section
             id="features"
-            className="py-20 px-8 bg-[#F6FBFF] text-center"
+            className="py-20 px-8 bg-[#F0F8FF] text-center"
         >
             <h2 className="text-4xl font-bold mb-12 text-black">Key Features</h2>
 

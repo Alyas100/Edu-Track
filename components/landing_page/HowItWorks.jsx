@@ -2,7 +2,7 @@ export default function HowItWorks() {
     return (
         <section
             id="howitworks"
-            className="py-20 px-8 bg-[#F8FDFF] text-center"
+            className="py-20 px-8 bg-[#F0F8FF] text-center"
         >
             <h2 className="text-4xl font-bold mb-12 text-black">
                 How It Works
