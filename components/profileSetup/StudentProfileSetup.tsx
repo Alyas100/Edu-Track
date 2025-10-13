@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const StudentProfileSetup = () => {
   const supabase = createClient();
@@ -26,12 +26,16 @@ const StudentProfileSetup = () => {
 
       const { data, error } = await supabase
         .from("profiles")
-        .select("first_name, last_name")
+        .select("display_name, first_name, last_name")
         .eq("id", user.id)
         .single();
 
       if (!error && data) {
-        setName(`${data.first_name} ${data.last_name}`);
+        // Use display_name if first_name/last_name are null
+        const fullName =
+          data.display_name ||
+          `${data.first_name || ""} ${data.last_name || ""}`.trim();
+        setName(fullName || "User");
       }
     };
 
@@ -54,9 +58,16 @@ const StudentProfileSetup = () => {
     } = await supabase.auth.getUser();
     if (!user) return alert("Not logged in");
 
-    const { error } = await supabase.from("students").upsert({
-      id: user.id,
-      name,
+    console.log("Attempting to insert:", {
+      profile_id: user.id,
+      subjects,
+      languages,
+      learning_goals: learningGoals,
+      preferred_slots: preferredSlots,
+    });
+
+    const { error, data } = await supabase.from("students").insert({
+      profile_id: user.id,
       subjects,
       languages,
       learning_goals: learningGoals,
@@ -64,10 +75,16 @@ const StudentProfileSetup = () => {
     });
 
     if (error) {
-      console.error(error);
-      alert("Failed to save profile");
+      console.error("Full error object:", error);
+      console.error("Error message:", error.message);
+      console.error("Error code:", error.code);
+      console.error("Error details:", error.details);
+      console.error("Error hint:", error.hint);
+      alert(`Failed to save profile: ${error.message}`);
       return;
     }
+
+    console.log("Insert successful:", data);
 
     await supabase
       .from("profiles")
