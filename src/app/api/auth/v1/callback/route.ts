@@ -1,4 +1,4 @@
-import { syncUserProfile } from "@/utils/supabase/profile";
+import { handleGoogleProfileSync } from "@/utils/supabase/googleProfileSave";
 import { NextResponse } from "next/server";
 import { createClient } from "../../../../../../utils/supabase/server";
 
@@ -6,10 +6,12 @@ import { createClient } from "../../../../../../utils/supabase/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
+  console.log("this startingg.......");
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
 
-  let next = searchParams.get("next") ?? "/";
+  // redirect to 'setup' page if success
+  let next = searchParams.get("next") ?? "/setup";
   if (!next.startsWith("/")) {
     next = "/"; // Ensure it's a relative path if not provided
   }
@@ -20,6 +22,8 @@ export async function GET(request: Request) {
 
     // Exchange the temporary code for a user session
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+    console.log("this pass......");
 
     if (error) {
       // Log the actual error for debugging in the terminal
@@ -40,7 +44,7 @@ export async function GET(request: Request) {
     // Only sync if user exists
     if (user) {
       try {
-        await syncUserProfile(user, "google");
+        await handleGoogleProfileSync(supabase, user); // Assuming handleGoogleProfileSync only takes 2 args now: (supabase, user)
       } catch (profileError) {
         console.error("Profile sync failed:", profileError);
       }

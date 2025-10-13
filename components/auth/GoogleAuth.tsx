@@ -2,24 +2,31 @@
 
 import Image from "next/image";
 import { createClient } from "../../utils/supabase/client";
-
 // login for handling g-sign in button
 const GoogleAuth = () => {
+  console.log("DEBUG:EXECUTINGGGGG....");
   // Define the correct sign-in logic function ---
   const handleGoogleSignIn = async () => {
+    console.log("DEBUG:ENTERINGGGGGG");
     // Initialize Supabase client
     const supabase = createClient();
 
+    console.log("DEB:1");
+
     // Define the redirection URL after successful sign-in
-    const redirectTo = `${window.location.origin}/setup`;
+    const redirectTo = `${window.location.origin}/api/auth/v1/callback`;
+
+    console.log("DEB:2");
 
     //  Initiate the OAuth flow
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo, // adjust this later to redirect to dashboard
+        redirectTo: redirectTo, // redirect to callback first
       },
     });
+
+    console.log("DEB:3");
 
     if (error) {
       console.error("Error during Google OAuth:", error.message);
