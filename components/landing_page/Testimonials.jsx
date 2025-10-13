@@ -47,8 +47,8 @@ export default function Testimonials() {
                 <div className="flex justify-center gap-10 mt-6">
                     <img src="/logos/unicef.png" alt="some" className="h-10 opacity-70 hover:opacity-100 transition" />
                     <img src="/logos/unesco.png" alt="logo" className="h-10 opacity-70 hover:opacity-100 transition" />
-                    <img src="/logos/mit.png" alt="of" className="h-10 opacity-70 hover:opacity-100 transition" />
-                    <img src="/logos/ncert.png" alt="org" className="h-10 opacity-70 hover:opacity-100 transition" />
+                    <img src="images/IIT.png" alt="of" className="h-10 opacity-70 hover:opacity-100 transition" />
+                    <img src="images/NCERT.jpg" alt="org" className="h-10 opacity-70 hover:opacity-100 transition" />
                 </div>
             </div>
         </section>
